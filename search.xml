@@ -1,138 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>RequestParam 的使用</title>
-      <link href="/2019/05/14/requestparam-de-shi-yong/"/>
-      <url>/2019/05/14/requestparam-de-shi-yong/</url>
-      
-        <content type="html"><![CDATA[<h3 id="RequestParam-参数加与不加的区别"><a href="#RequestParam-参数加与不加的区别" class="headerlink" title="@RequestParam 参数加与不加的区别"></a>@RequestParam 参数加与不加的区别</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/list"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(<span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"list"</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/list"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(@RequestParam <span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"list"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>第一种写法参数为非必传，第二种写法参数为必传。参数名为userId。</p><p>第二种写法可以通过@RequestParam(required = false)设置为非必传。因为required值默认是true，所以默认必传。</p><p>第二种写法可以通过@RequestParam(“userId”)或者@RequestParam(value = “userId”)指定参数名。</p><p>第二种写法可以通过@RequestParam(defaultValue = “0”)指定参数默认值</p><blockquote><p>当@RequestParam(required = false) 或不加 @RequestParam时, 参数类型为int,该参数不传,会报错,因为如果不传,会把null 复制到int,会报错.   <strong>推荐使用包装类Integer</strong> </p></blockquote>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>SpringBoot  Value 注解注入static 字段</title>
-      <link href="/2019/05/14/springboot-value-zhu-jie-zhu-ru-static-zi-duan/"/>
-      <url>/2019/05/14/springboot-value-zhu-jie-zhu-ru-static-zi-duan/</url>
-      
-        <content type="html"><![CDATA[<h3 id="普通参数使用-Value-示例"><a href="#普通参数使用-Value-示例" class="headerlink" title="普通参数使用@Value 示例:"></a>普通参数使用@Value 示例:</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Utils</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;test.host&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span>  String host;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;test.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span>  String port;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="但是在注入static字段时-直接使用-Value-为静态变量赋值是不行的，可以使用-set-方法："><a href="#但是在注入static字段时-直接使用-Value-为静态变量赋值是不行的，可以使用-set-方法：" class="headerlink" title="但是在注入static字段时,直接使用 @Value 为静态变量赋值是不行的，可以使用 set 方法："></a>但是在注入static字段时,直接使用 @Value 为静态变量赋值是不行的，可以使用 set 方法：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Utils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String host;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;test.host&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHost</span><span class="params">(String host)</span> </span>&#123;</span><br><span class="line">        Utils.host = host;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;test.port&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPort</span><span class="params">(String port)</span> </span>&#123;</span><br><span class="line">        Utils.port = port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意，需要使用 @Component 注解。</p></blockquote>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> springboot </tag>
-            
-            <tag> java </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>ActiveMQ 入门</title>
-      <link href="/2019/05/08/activemq-ru-men/"/>
-      <url>/2019/05/08/activemq-ru-men/</url>
-      
-        <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有ActiveMQ，RabbitMQ，kafka。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。 </p><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ol><li><p>支持多种语言编写客户端 </p></li><li><p>对spring的支持，很容易和spring整合 </p></li><li><p>支持多种传输协议：TCP,SSL,NIO,UDP等 </p></li><li><p>支持AJAX </p><h4 id="消息形式："><a href="#消息形式：" class="headerlink" title="消息形式："></a>消息形式：</h4></li><li><p>点对点（queue） </p></li><li><p>一对多（topic）</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote><p><a href="https://blog.csdn.net/ytangdigl/article/details/77740100" target="_blank" rel="noopener">参考链接</a></p><ol><li>下载apache-activemq-5.13.1-bin.tar.gz <br><br>下载地址：<a href="http://download.csdn.net/download/u014223912/9464747" target="_blank" rel="noopener">http://download.csdn.net/download/u014223912/9464747</a></li></ol></blockquote><ol start="2"><li><p>下载后解压 </p></li><li><p>进入到/apache-activemq-5.13.1/bin/macosx目录 </p></li><li><p>启动ActiveMQ</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./activemq start</span><br></pre></td></tr></table></figure></li><li><p>在浏览器中 <a href="http://127.0.0.1:8161/admin/" target="_blank" rel="noopener">http://127.0.0.1:8161/admin/</a>   默认用户名密码都为admin</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/jiuqiyuliang/article/category/5617711" target="_blank" rel="noopener">https://blog.csdn.net/jiuqiyuliang/article/category/5617711</a></p></li></ol></li></ol>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Mac 安装 Mysql</title>
-      <link href="/2019/04/29/mac-an-zhuang-mysql/"/>
-      <url>/2019/04/29/mac-an-zhuang-mysql/</url>
-      
-        <content type="html"><![CDATA[<p>### </p><p><a href="https://www.jianshu.com/p/4cb5ef29a099" target="_blank" rel="noopener">https://www.jianshu.com/p/4cb5ef29a099</a></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> brew </tag>
-            
-            <tag> mysql </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>git SSH 和 HTTP 的区别</title>
-      <link href="/2019/04/24/git-ssh-he-http-de-qu-bie/"/>
-      <url>/2019/04/24/git-ssh-he-http-de-qu-bie/</url>
-      
-        <content type="html"><![CDATA[<p>最近项目迁移到git上去,在提交代码时遇到了要每次输入账号密码的情况,查看资料时了解到了 http 和ssh 的问题,特此记录.<br>百度了一下,大部分的回答如下:</p><h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>使用 http url 克隆对初学者来说会比较方便，复制 http url 然后到命令行里面直接用 git clone 命令克隆到本地就好了，在执行 clone 命令之后需要输入你的 GitLab 的帐号和密码。使用 git Bash 每次都需要输入帐号和密码，不过在使用 PhpStorm 时，PhpStorm 会记住你的用户名和密码，只需第一次使用时输入就好。</p><h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><p>使用 SSH url 克隆却需要在克隆之前先配置和添加好 SSH key ，因此，如果你想要使用 SSH url 克隆的话，你必须是这个项目的拥有者。否则你是无法添加 SSH key 的，另外 ssh 默认是每次 fetch 和 push 代码都不需要输入账号和密码。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>sourceTree 每次提交代码都要输入账号密码</title>
-      <link href="/2019/04/24/sourcetree-mei-ci-ti-jiao-dai-ma-du-yao-shu-ru-zhang-hao-mi-ma/"/>
-      <url>/2019/04/24/sourcetree-mei-ci-ti-jiao-dai-ma-du-yao-shu-ru-zhang-hao-mi-ma/</url>
-      
-        <content type="html"><![CDATA[<a id="more"></a><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一:"></a>方法一:</h3><p> 使用ssh 方式做免密处理</p><!-- more --><p>如果必须使用http 的方式</p><h3 id="方法二-在-git目录中有个config目录，在路径前配置下用户名和密码即可，如下所示："><a href="#方法二-在-git目录中有个config目录，在路径前配置下用户名和密码即可，如下所示：" class="headerlink" title="方法二:在.git目录中有个config目录，在路径前配置下用户名和密码即可，如下所示："></a>方法二:在.git目录中有个config目录，在路径前配置下用户名和密码即可，如下所示：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">    repositoryformatversion = 0</span><br><span class="line">    filemode = false</span><br><span class="line">    bare = false</span><br><span class="line">    logallrefupdates = true</span><br><span class="line">    symlinks = false</span><br><span class="line">    ignorecase = true</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">    url = http://账号:&apos;密码&apos;@192.168.10.7:8090/test/Django.git</span><br><span class="line">    fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">[branch &quot;master&quot;]</span><br><span class="line">    remote = origin</span><br><span class="line">    merge = refs/heads/master</span><br></pre></td></tr></table></figure><h3 id="方法三-设置对所有项目有效"><a href="#方法三-设置对所有项目有效" class="headerlink" title="方法三:设置对所有项目有效"></a>方法三:设置对所有项目有效</h3><p>git config –global credential.helper osxkeychain  #第一次需要输入密码，以后都不需要了</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2013/12/02/hello-world/"/>
-      <url>/2013/12/02/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><a id="more"></a><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title><![CDATA[SpringBoot 注解 @RequestParam 的使用]]></title>
+    <url>%2F2019%2F05%2F14%2Frequestparam-de-shi-yong%2F</url>
+    <content type="text"><![CDATA[@RequestParam 参数加与不加的区别123456789@RequestMapping("/list")public String test(int userId) &#123; return "list";&#125; @RequestMapping("/list")public String test(@RequestParam int userId) &#123; return "list";&#125; 第一种写法参数为非必传，第二种写法参数为必传。参数名为userId。 第二种写法可以通过@RequestParam(required = false)设置为非必传。因为required值默认是true，所以默认必传。 第二种写法可以通过@RequestParam(“userId”)或者@RequestParam(value = “userId”)指定参数名。 第二种写法可以通过@RequestParam(defaultValue = “0”)指定参数默认值 当@RequestParam(required = false) 或不加 @RequestParam时, 参数类型为int,该参数不传,会报错,因为如果不传,会把null 复制到int,会报错. 推荐使用包装类Integer]]></content>
       <categories>
-          
-          <category> categories </category>
-          
+        <category>java</category>
+        <category>springBoot</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> tags </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>注解</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SpringBoot Value 注解注入static 字段]]></title>
+    <url>%2F2019%2F05%2F14%2Fspringboot-value-zhu-jie-zhu-ru-static-zi-duan%2F</url>
+    <content type="text"><![CDATA[普通参数使用@Value 示例:123456789public class Utils &#123; @Value("$&#123;test.host&#125;") private String host; @Value("$&#123;test.port&#125;") private String port; ......&#125; 但是在注入static字段时,直接使用 @Value 为静态变量赋值是不行的，可以使用 set 方法：123456789101112131415161718@Componentpublic class Utils &#123; private static String host; @Value("$&#123;test.host&#125;") public void setHost(String host) &#123; Utils.host = host; &#125; private static String port; @Value("$&#123;test.port&#125;") public void setPort(String port) &#123; Utils.port = port; &#125; ......&#125; 注意，需要使用 @Component 注解。]]></content>
+      <categories>
+        <category>java</category>
+        <category>springBoot</category>
+      </categories>
+      <tags>
+        <tag>注解</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ActiveMQ 入门]]></title>
+    <url>%2F2019%2F05%2F08%2Factivemq-ru-men%2F</url>
+    <content type="text"><![CDATA[介绍MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有ActiveMQ，RabbitMQ，kafka。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。 特点： 支持多种语言编写客户端 对spring的支持，很容易和spring整合 支持多种传输协议：TCP,SSL,NIO,UDP等 支持AJAX 消息形式： 点对点（queue） 一对多（topic） 安装 参考链接 下载apache-activemq-5.13.1-bin.tar.gz 下载地址：http://download.csdn.net/download/u014223912/9464747 下载后解压 进入到/apache-activemq-5.13.1/bin/macosx目录 启动ActiveMQ 1./activemq start 在浏览器中 http://127.0.0.1:8161/admin/ 默认用户名密码都为admin 参考资料https://blog.csdn.net/jiuqiyuliang/article/category/5617711]]></content>
+      <categories>
+        <category>java</category>
+        <category>ActiveMQ</category>
+      </categories>
+      <tags>
+        <tag>ActiveMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac 安装 Mysql]]></title>
+    <url>%2F2019%2F04%2F29%2Fmac-an-zhuang-mysql%2F</url>
+    <content type="text"><![CDATA[### https://www.jianshu.com/p/4cb5ef29a099]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>brew</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git SSH 和 HTTP 的区别]]></title>
+    <url>%2F2019%2F04%2F24%2Fgit-ssh-he-http-de-qu-bie%2F</url>
+    <content type="text"><![CDATA[最近项目迁移到git上去,在提交代码时遇到了要每次输入账号密码的情况,查看资料时了解到了 http 和ssh 的问题,特此记录.百度了一下,大部分的回答如下: HTTP使用 http url 克隆对初学者来说会比较方便，复制 http url 然后到命令行里面直接用 git clone 命令克隆到本地就好了，在执行 clone 命令之后需要输入你的 GitLab 的帐号和密码。使用 git Bash 每次都需要输入帐号和密码，不过在使用 PhpStorm 时，PhpStorm 会记住你的用户名和密码，只需第一次使用时输入就好。 SSH使用 SSH url 克隆却需要在克隆之前先配置和添加好 SSH key ，因此，如果你想要使用 SSH url 克隆的话，你必须是这个项目的拥有者。否则你是无法添加 SSH key 的，另外 ssh 默认是每次 fetch 和 push 代码都不需要输入账号和密码。]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sourceTree 每次提交代码都要输入账号密码]]></title>
+    <url>%2F2019%2F04%2F24%2Fsourcetree-mei-ci-ti-jiao-dai-ma-du-yao-shu-ru-zhang-hao-mi-ma%2F</url>
+    <content type="text"><![CDATA[方法一: 使用ssh 方式做免密处理 如果必须使用http 的方式 方法二:在.git目录中有个config目录，在路径前配置下用户名和密码即可，如下所示：12345678910111213[core] repositoryformatversion = 0 filemode = false bare = false logallrefupdates = true symlinks = false ignorecase = true[remote &quot;origin&quot;] url = http://账号:&apos;密码&apos;@192.168.10.7:8090/test/Django.git fetch = +refs/heads/*:refs/remotes/origin/*[branch &quot;master&quot;] remote = origin merge = refs/heads/master 方法三:设置对所有项目有效git config –global credential.helper osxkeychain #第一次需要输入密码，以后都不需要了]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>sourceTree</tag>
+      </tags>
+  </entry>
 </search>
