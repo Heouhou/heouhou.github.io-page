@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[RequestParam 的使用]]></title>
+    <url>%2F2019%2F05%2F14%2Frequestparam-de-shi-yong%2F</url>
+    <content type="text"><![CDATA[@RequestParam 参数加与不加的区别123456789@RequestMapping("/list")public String test(int userId) &#123; return "list";&#125; @RequestMapping("/list")public String test(@RequestParam int userId) &#123; return "list";&#125; 第一种写法参数为非必传，第二种写法参数为必传。参数名为userId。 第二种写法可以通过@RequestParam(required = false)设置为非必传。因为required值默认是true，所以默认必传。 第二种写法可以通过@RequestParam(“userId”)或者@RequestParam(value = “userId”)指定参数名。 第二种写法可以通过@RequestParam(defaultValue = “0”)指定参数默认值 当@RequestParam(required = false) 或不加 @RequestParam时, 参数类型为int,该参数不传,会报错,因为如果不传,会把null 复制到int,会报错. 推荐使用包装类Integer]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[SpringBoot Value 注解注入static 字段]]></title>
+    <url>%2F2019%2F05%2F14%2Fspringboot-value-zhu-jie-zhu-ru-static-zi-duan%2F</url>
+    <content type="text"><![CDATA[普通参数使用@Value 示例:123456789public class Utils &#123; @Value("$&#123;test.host&#125;") private String host; @Value("$&#123;test.port&#125;") private String port; ......&#125; 但是在注入static字段时,直接使用 @Value 为静态变量赋值是不行的，可以使用 set 方法：123456789101112131415161718@Componentpublic class Utils &#123; private static String host; @Value("$&#123;test.host&#125;") public void setHost(String host) &#123; Utils.host = host; &#125; private static String port; @Value("$&#123;test.port&#125;") public void setPort(String port) &#123; Utils.port = port; &#125; ......&#125; 注意，需要使用 @Component 注解。]]></content>
+      <tags>
+        <tag>springboot</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[ActiveMQ 入门]]></title>
+    <url>%2F2019%2F05%2F08%2Factivemq-ru-men%2F</url>
+    <content type="text"><![CDATA[介绍MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有ActiveMQ，RabbitMQ，kafka。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。 特点： 支持多种语言编写客户端 对spring的支持，很容易和spring整合 支持多种传输协议：TCP,SSL,NIO,UDP等 支持AJAX 消息形式： 点对点（queue） 一对多（topic） 安装 参考链接 下载apache-activemq-5.13.1-bin.tar.gz 下载地址：http://download.csdn.net/download/u014223912/9464747 下载后解压 进入到/apache-activemq-5.13.1/bin/macosx目录 启动ActiveMQ 1./activemq start 在浏览器中 http://127.0.0.1:8161/admin/ 默认用户名密码都为admin 参考资料https://blog.csdn.net/jiuqiyuliang/article/category/5617711]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac 安装 Mysql]]></title>
+    <url>%2F2019%2F04%2F29%2Fmac-an-zhuang-mysql%2F</url>
+    <content type="text"><![CDATA[### https://www.jianshu.com/p/4cb5ef29a099]]></content>
+      <tags>
+        <tag>brew</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git SSH 和 HTTP 的区别]]></title>
+    <url>%2F2019%2F04%2F24%2Fgit-ssh-he-http-de-qu-bie%2F</url>
+    <content type="text"><![CDATA[最近项目迁移到git上去,在提交代码时遇到了要每次输入账号密码的情况,查看资料时了解到了 http 和ssh 的问题,特此记录.百度了一下,大部分的回答如下: HTTP使用 http url 克隆对初学者来说会比较方便，复制 http url 然后到命令行里面直接用 git clone 命令克隆到本地就好了，在执行 clone 命令之后需要输入你的 GitLab 的帐号和密码。使用 git Bash 每次都需要输入帐号和密码，不过在使用 PhpStorm 时，PhpStorm 会记住你的用户名和密码，只需第一次使用时输入就好。 SSH使用 SSH url 克隆却需要在克隆之前先配置和添加好 SSH key ，因此，如果你想要使用 SSH url 克隆的话，你必须是这个项目的拥有者。否则你是无法添加 SSH key 的，另外 ssh 默认是每次 fetch 和 push 代码都不需要输入账号和密码。]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[sourceTree 每次提交代码都要输入账号密码]]></title>
+    <url>%2F2019%2F04%2F24%2Fsourcetree-mei-ci-ti-jiao-dai-ma-du-yao-shu-ru-zhang-hao-mi-ma%2F</url>
+    <content type="text"><![CDATA[方法一: 使用ssh 方式做免密处理 如果必须使用http 的方式 方法二:在.git目录中有个config目录，在路径前配置下用户名和密码即可，如下所示：12345678910111213[core] repositoryformatversion = 0 filemode = false bare = false logallrefupdates = true symlinks = false ignorecase = true[remote &quot;origin&quot;] url = http://账号:&apos;密码&apos;@192.168.10.7:8090/test/Django.git fetch = +refs/heads/*:refs/remotes/origin/*[branch &quot;master&quot;] remote = origin merge = refs/heads/master 方法三:设置对所有项目有效git config –global credential.helper osxkeychain #第一次需要输入密码，以后都不需要了]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2013%2F12%2F02%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>categories</category>
+      </categories>
+      <tags>
+        <tag>tags</tag>
+      </tags>
+  </entry>
+</search>
