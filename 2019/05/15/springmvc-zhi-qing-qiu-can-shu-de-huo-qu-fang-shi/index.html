@@ -151,7 +151,7 @@
 <meta property="og:site_name" content="hou&#39;s Blog">
 <meta property="og:description" content="原文链接 SpringMVC之请求参数的获取方式I. GET请求参数获取get请求参数，一般都是直接挂在请求的url上，所以获取这些参数还是比较简单的 1. 通过 HttpServletRequest获取参数这个可以说是最基本最常见的的方式了，  javax.servlet.ServletRequest#getParameter来获取对应的参数  1234567891011@RestControl">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-16T02:05:36.592Z">
+<meta property="og:updated_time" content="2019-05-16T02:07:17.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC之请求参数的获取方式">
 <meta name="twitter:description" content="原文链接 SpringMVC之请求参数的获取方式I. GET请求参数获取get请求参数，一般都是直接挂在请求的url上，所以获取这些参数还是比较简单的 1. 通过 HttpServletRequest获取参数这个可以说是最基本最常见的的方式了，  javax.servlet.ServletRequest#getParameter来获取对应的参数  1234567891011@RestControl">
@@ -484,7 +484,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-16 10:05:36" itemprop="dateModified" datetime="2019-05-16T10:05:36+08:00">2019-05-16</time>
+                <time title="修改时间：2019-05-16 10:07:17" itemprop="dateModified" datetime="2019-05-16T10:07:17+08:00">2019-05-16</time>
               
             
           </span>
@@ -656,7 +656,34 @@
 <li>如果可以不上传文件，则可以用上面的这种猥琐姿势，内部进行判断</li>
 <li>((MultipartHttpServletRequest) request).getFile(xxx)来获取指定名的上传文件<h2 id="IV-小结"><a href="#IV-小结" class="headerlink" title="IV. 小结"></a>IV. 小结</h2><h4 id="1-五种获取参数的姿势"><a href="#1-五种获取参数的姿势" class="headerlink" title="1. 五种获取参数的姿势"></a>1. 五种获取参数的姿势</h4></li>
 </ul>
-<p>方式 | 注意事项<br>| :——– | :——–|<br>HttpServletRequest获取参数 | 最常见通用<br>方法参数与请求参数同名 |  注意参数名统一，注意类型一致，尽量不用非包装基本类型<br>@RequestParam注解 |      同上，可注解内指定http参数名<br>Bean方式|      定义一个bean，会将同名的http参数赋值进去，推荐<br>@PathVariable 注解 |  请求url参数</p>
+<table>
+<thead>
+<tr>
+<th align="left">方式</th>
+<th align="left">注意事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">HttpServletRequest获取参数</td>
+<td align="left">最常见通用</td>
+</tr>
+<tr>
+<td align="left">方法参数与请求参数同名</td>
+<td align="left">注意参数名统一，注意类型一致，尽量不用非包装基本类型</td>
+</tr>
+<tr>
+<td align="left">@RequestParam注解</td>
+<td align="left">同上，可注解内指定http参数名</td>
+</tr>
+<tr>
+<td align="left">Bean方式</td>
+<td align="left">定义一个bean，会将同名的http参数赋值进去，推荐</td>
+</tr>
+<tr>
+<td align="left">@PathVariable 注解</td>
+<td align="left">请求url参数</td>
+</tr>
+</tbody></table>
 <h4 id="2-传文件使用姿势"><a href="#2-传文件使用姿势" class="headerlink" title="2. 传文件使用姿势"></a>2. 传文件使用姿势</h4><ul>
 <li>使用MultipartHttpServletRequest来获取上传的文件，当然也可以获取基本的请求参数</li>
 </ul>
