@@ -143,20 +143,17 @@
 
 
 
-  <meta name="description" content="介绍MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有ActiveMQ，RabbitMQ，kafka。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。">
-<meta name="keywords" content="ActiveMQ">
+  <meta name="description" content="1. 添加Swagger2依赖 在pom.xml中加入Swagger2的依赖 1234567891011&amp;lt;!--swagger--&amp;gt;&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;io.springfox&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;springfox-swagger2&amp;lt;/artifactId&amp;gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ActiveMQ 入门">
-<meta property="og:url" content="http://yoursite.com/2019/05/08/activemq-ru-men/index.html">
+<meta property="og:title" content="SpringBoot项目搭建 :使用Swagger2构建强大的RESTful API文档">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/springboot-swagger2/index.html">
 <meta property="og:site_name" content="hou&#39;s Blog">
-<meta property="og:description" content="介绍MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有ActiveMQ，RabbitMQ，kafka。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。">
+<meta property="og:description" content="1. 添加Swagger2依赖 在pom.xml中加入Swagger2的依赖 1234567891011&amp;lt;!--swagger--&amp;gt;&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;io.springfox&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;springfox-swagger2&amp;lt;/artifactId&amp;gt;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/post-images/activemq-ru-men.jpeg">
-<meta property="og:updated_time" content="2019-05-15T02:49:27.957Z">
+<meta property="og:updated_time" content="2019-05-16T06:14:52.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ActiveMQ 入门">
-<meta name="twitter:description" content="介绍MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有ActiveMQ，RabbitMQ，kafka。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。">
-<meta name="twitter:image" content="http://yoursite.com/post-images/activemq-ru-men.jpeg">
+<meta name="twitter:title" content="SpringBoot项目搭建 :使用Swagger2构建强大的RESTful API文档">
+<meta name="twitter:description" content="1. 添加Swagger2依赖 在pom.xml中加入Swagger2的依赖 1234567891011&amp;lt;!--swagger--&amp;gt;&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;io.springfox&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId&amp;gt;springfox-swagger2&amp;lt;/artifactId&amp;gt;">
 
 
 
@@ -164,7 +161,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/08/activemq-ru-men/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/16/springboot-swagger2/">
 
 
 
@@ -174,7 +171,7 @@
   };
 </script>
 
-  <title>ActiveMQ 入门 | hou's Blog</title>
+  <title>SpringBoot项目搭建 :使用Swagger2构建强大的RESTful API文档 | hou's Blog</title>
   
 
 
@@ -426,7 +423,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/activemq-ru-men/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/springboot-swagger2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hooo">
@@ -443,7 +440,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ActiveMQ 入门
+          <h1 class="post-title" itemprop="name headline">SpringBoot项目搭建 :使用Swagger2构建强大的RESTful API文档
 
               
             
@@ -469,24 +466,12 @@
                 
               
 
-              <time title="创建时间：2019-05-08 13:34:39" itemprop="dateCreated datePublished" datetime="2019-05-08T13:34:39+08:00">2019-05-08</time>
+              <time title="创建时间：2019-05-16 13:55:51 / 修改时间：14:14:52" itemprop="dateCreated datePublished" datetime="2019-05-16T13:55:51+08:00">2019-05-16</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-15 10:49:27" itemprop="dateModified" datetime="2019-05-15T10:49:27+08:00">2019-05-15</time>
               
             
           </span>
@@ -510,7 +495,14 @@
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/ActiveMQ/" itemprop="url" rel="index"><span itemprop="name">ActiveMQ</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/Spring/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a></span>
 
                 
                 
@@ -543,55 +535,17 @@
 
       
       
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <img src="/post-images/activemq-ru-men.jpeg" itemprop="contentUrl">
-            
-          
-
-          
-          </div>
-        </div>
-      
 
       
-        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有ActiveMQ，RabbitMQ，kafka。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。</p>
-<a id="more"></a>  
-<h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ol>
-<li><p>支持多种语言编写客户端 </p>
-</li>
-<li><p>对spring的支持，很容易和spring整合 </p>
-</li>
-<li><p>支持多种传输协议：TCP,SSL,NIO,UDP等 </p>
-</li>
-<li><p>支持AJAX </p>
-<h4 id="消息形式："><a href="#消息形式：" class="headerlink" title="消息形式："></a>消息形式：</h4></li>
-<li><p>点对点（queue） </p>
-</li>
-<li><p>一对多（topic）</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
-<p><a href="https://blog.csdn.net/ytangdigl/article/details/77740100" target="_blank" rel="noopener">参考链接</a></p>
-<ol>
-<li>下载apache-activemq-5.13.1-bin.tar.gz <br><br>下载地址：<a href="http://download.csdn.net/download/u014223912/9464747" target="_blank" rel="noopener">http://download.csdn.net/download/u014223912/9464747</a></li>
-</ol>
-</blockquote>
-<ol start="2">
-<li><p>下载后解压 </p>
-</li>
-<li><p>进入到/apache-activemq-5.13.1/bin/macosx目录 </p>
-</li>
-<li><p>启动ActiveMQ</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./activemq start</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在浏览器中 <a href="http://127.0.0.1:8161/admin/" target="_blank" rel="noopener">http://127.0.0.1:8161/admin/</a>   默认用户名密码都为admin</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/jiuqiyuliang/article/category/5617711" target="_blank" rel="noopener">https://blog.csdn.net/jiuqiyuliang/article/category/5617711</a></p>
-</li>
-</ol>
-</li>
-</ol>
+        <h3 id="1-添加Swagger2依赖"><a href="#1-添加Swagger2依赖" class="headerlink" title="1. 添加Swagger2依赖"></a>1. 添加Swagger2依赖</h3><p> 在pom.xml中加入Swagger2的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--swagger--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-swagger-ui<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="2-创建Swagger2配置类"><a href="#2-创建Swagger2配置类" class="headerlink" title="2. 创建Swagger2配置类"></a>2. 创建Swagger2配置类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Value</span>(value = <span class="string">"$&#123;swagger.enabled&#125;"</span>)</span><br><span class="line">  Boolean swaggerEnabled;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Docket <span class="title">createRestApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="comment">/* ParameterBuilder tokenParam = new ParameterBuilder();</span></span><br><span class="line"><span class="comment">    List&lt;Parameter&gt; params = new ArrayList&lt;&gt;();</span></span><br><span class="line"><span class="comment">    tokenParam.name("Authorization").description("令牌Token").modelRef(new ModelRef("string"))</span></span><br><span class="line"><span class="comment">        .parameterType("header").required(false).build();</span></span><br><span class="line"><span class="comment">    params.add(tokenParam.build());*/</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">        .groupName(<span class="string">"v1.0"</span>)</span><br><span class="line">        .apiInfo(apiInfo())</span><br><span class="line">        .enable(swaggerEnabled)</span><br><span class="line">        .select()</span><br><span class="line">        .apis(RequestHandlerSelectors.basePackage(<span class="string">"com.example.demo"</span>))</span><br><span class="line">        .paths(PathSelectors.any())</span><br><span class="line">        .build()</span><br><span class="line">        .pathMapping(<span class="string">""</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">apiInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ApiInfoBuilder()</span><br><span class="line">        .title(<span class="string">"SpringBootDemo-API"</span>)</span><br><span class="line">        .description(<span class="string">"SpringBoot项目搭建"</span>)</span><br><span class="line">        .contact(<span class="keyword">new</span> Contact(<span class="string">"hou"</span>, <span class="string">"www.buhaoji.top"</span>, <span class="string">"843882065@qq.com"</span>))</span><br><span class="line">        .version(<span class="string">"1.0.0"</span>)</span><br><span class="line">        .build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上代码所示，通过@Configuration注解，让Spring来加载该类配置。再通过@EnableSwagger2注解来启用Swagger2。<br><br>再通过createRestApi函数创建Docket的Bean之后，apiInfo()用来创建该Api的基本信息（这些基本信息会展现在文档页面中）。select()函数返回一个ApiSelectorBuilder实例用来控制哪些接口暴露给Swagger来展现，本例采用指定扫描的包路径来定义，Swagger会扫描该包下所有Controller定义的API，并产生文档内容（除了被@ApiIgnore指定的请求）。</p>
+<h3 id="3-添加文档内容"><a href="#3-添加文档内容" class="headerlink" title="3. 添加文档内容"></a>3. 添加文档内容</h3><p>在完成了上述配置后，其实已经可以生产文档内容，但是这样的文档主要针对请求本身，而描述主要来源于函数等命名产生，对用户并不友好，我们通常需要自己增加一些说明来丰富文档内容。如下所示，我们通过@ApiOperation注解来给API增加说明、通过@ApiImplicitParams、@ApiImplicitParam注解来给参数增加说明。</p>
+<p>//TODO</p>
+<h3 id="4-swagger-相关注解"><a href="#4-swagger-相关注解" class="headerlink" title="4.swagger 相关注解"></a>4.swagger 相关注解</h3><h3 id="5-swagger-分组"><a href="#5-swagger-分组" class="headerlink" title="5.swagger 分组"></a>5.swagger 分组</h3>
       
     </div>
 
@@ -612,12 +566,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/ActiveMQ/" rel="tag"># ActiveMQ</a>
-          
-        </div>
-      
 
       
       
@@ -627,8 +575,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/29/mac-an-zhuang-mysql/" rel="next" title="Mac 安装 Mysql">
-                <i class="fa fa-chevron-left"></i> Mac 安装 Mysql
+              <a href="/2019/05/15/springmvc-zhi-qing-qiu-can-shu-de-huo-qu-fang-shi/" rel="next" title="SpringMVC之请求参数的获取方式">
+                <i class="fa fa-chevron-left"></i> SpringMVC之请求参数的获取方式
               </a>
             
           </div>
@@ -636,10 +584,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/14/springboot-value-zhu-jie-zhu-ru-static-zi-duan/" rel="prev" title="SpringBoot  Value 注解注入static 字段">
-                SpringBoot  Value 注解注入static 字段 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -710,7 +654,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -739,7 +683,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -834,7 +780,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特点："><span class="nav-number">1.0.1.</span> <span class="nav-text">特点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息形式："><span class="nav-number">1.0.2.</span> <span class="nav-text">消息形式：</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-添加Swagger2依赖"><span class="nav-number">1.</span> <span class="nav-text">1. 添加Swagger2依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建Swagger2配置类"><span class="nav-number">2.</span> <span class="nav-text">2. 创建Swagger2配置类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-添加文档内容"><span class="nav-number">3.</span> <span class="nav-text">3. 添加文档内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-swagger-相关注解"><span class="nav-number">4.</span> <span class="nav-text">4.swagger 相关注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-swagger-分组"><span class="nav-number">5.</span> <span class="nav-text">5.swagger 分组</span></a></li></ol></div>
             
 
           </div>
