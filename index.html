@@ -485,7 +485,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-16 09:59:20" itemprop="dateModified" datetime="2019-05-16T09:59:20+08:00">2019-05-16</time>
+                <time title="修改时间：2019-05-16 10:00:52" itemprop="dateModified" datetime="2019-05-16T10:00:52+08:00">2019-05-16</time>
               
             
           </span>
@@ -655,11 +655,15 @@
 <p>简单来说，主要是利用HttpServletRequest来获取上传的文件</p>
 <p> <span style="font: 22px '宋体','Arial Narrow',HELVETICA; color: #FF5733">注意:</span></p>
 <ul>
-<li>如果接口必须要求上传文件，可以直接把参数声明为 MultipartHttpServletRequest， 此时调用方如果不传参数，会被异常拦截（可以通过@ControllerAdvice来拦截全局异常）</li>
-<li>如果可以不上传文件，则可以用上面的这种猥琐姿势，内部进行判断</li>
-<li>((MultipartHttpServletRequest) request).getFile(xxx)来获取指定名的上传文件<h2 id="IV-小结"><a href="#IV-小结" class="headerlink" title="IV. 小结"></a>IV. 小结</h2><h4 id="1-五种获取参数的姿势"><a href="#1-五种获取参数的姿势" class="headerlink" title="1. 五种获取参数的姿势"></a>1. 五种获取参数的姿势</h4></li>
+<li><p>如果接口必须要求上传文件，可以直接把参数声明为 MultipartHttpServletRequest， 此时调用方如果不传参数，会被异常拦截（可以通过@ControllerAdvice来拦截全局异常）</p>
+</li>
+<li><p>如果可以不上传文件，则可以用上面的这种猥琐姿势，内部进行判断</p>
+</li>
+<li><p>((MultipartHttpServletRequest) request).getFile(xxx)来获取指定名的上传文件</p>
+<h2 id="IV-小结"><a href="#IV-小结" class="headerlink" title="IV. 小结"></a>IV. 小结</h2><h4 id="1-五种获取参数的姿势"><a href="#1-五种获取参数的姿势" class="headerlink" title="1. 五种获取参数的姿势"></a>1. 五种获取参数的姿势</h4><p>方式 | 注意事项</p>
+</li>
 </ul>
-<p>方式 | 注意事项<br>—|—|—<br>HttpServletRequest获取参数 | 最常见通用<br>方法参数与请求参数同名 |  注意参数名统一，注意类型一致，尽量不用非包装基本类型<br>@RequestParam注解 |  同上，可注解内指定http参数名<br>Bean方式|  定义一个bean，会将同名的http参数赋值进去，推荐<br>@PathVariable 注解 |  请求url参数</p>
+<p>— | —<br>HttpServletRequest获取参数 | 最常见通用<br>方法参数与请求参数同名 |  注意参数名统一，注意类型一致，尽量不用非包装基本类型<br>@RequestParam注解 |      同上，可注解内指定http参数名<br>Bean方式|      定义一个bean，会将同名的http参数赋值进去，推荐<br>@PathVariable 注解 |  请求url参数</p>
 <h4 id="2-传文件使用姿势"><a href="#2-传文件使用姿势" class="headerlink" title="2. 传文件使用姿势"></a>2. 传文件使用姿势</h4><ul>
 <li>使用MultipartHttpServletRequest来获取上传的文件，当然也可以获取基本的请求参数</li>
 </ul>
