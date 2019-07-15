@@ -423,6 +423,208 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/12/Database-connection-pool-druid/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ho.1994">
+      <meta itemprop="description" content="填坑之路">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HouQx's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/12/Database-connection-pool-druid/" class="post-title-link" itemprop="url">Spring Boot 数据库连接池的选择之Druid</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-12 11:07:09" itemprop="dateCreated datePublished" datetime="2019-07-12T11:07:09+08:00">2019-07-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-15 10:16:19" itemprop="dateModified" datetime="2019-07-15T10:16:19+08:00">2019-07-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spring/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spring/SpringBoot/druid/" itemprop="url" rel="index"><span itemprop="name">druid</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="spring-boot-整合-durid-mysql-Mybatis-pagehelper"><a href="#spring-boot-整合-durid-mysql-Mybatis-pagehelper" class="headerlink" title="spring boot 整合 durid + mysql +Mybatis +pagehelper"></a>spring boot 整合 durid + mysql +Mybatis +pagehelper</h3><h4 id="1-pom文件"><a href="#1-pom文件" class="headerlink" title="1.pom文件"></a>1.pom文件</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--移除spring boot框架中默认logback依赖--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--druid--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.18<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--mybatis--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--pagehelper--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--mysql, 使用5版本, 8版本太高--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.31<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--lombok--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2. 配置文件"></a>2. 配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#jdbc配置</span><br><span class="line">spring.datasource.druid.driver-class-name=com.mysql.jdbc.Driver</span><br><span class="line">spring.datasource.druid.url=jdbc:mysql://139.199.203.84:3306/jscourt_miniapp?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;allowMultiQueries=true</span><br><span class="line">spring.datasource.druid.username=weifayuan</span><br><span class="line">spring.datasource.druid.password=bmS!wfy2018_test</span><br><span class="line">spring.datasource.druid.type=com.alibaba.druid.pool.DruidDataSource</span><br><span class="line"></span><br><span class="line">#连接池的设置</span><br><span class="line">#初始化时建立物理连接的个数</span><br><span class="line">spring.datasource.druid.initial-size=5</span><br><span class="line">#最小连接池数量</span><br><span class="line">spring.datasource.druid.min-idle=5</span><br><span class="line">#最大连接池数量 maxIdle已经不再使用</span><br><span class="line">spring.datasource.druid.max-active=20</span><br><span class="line">#获取连接时最大等待时间，单位毫秒</span><br><span class="line">spring.datasource.druid.max-wait=60000</span><br><span class="line">#申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。</span><br><span class="line">spring.datasource.druid.test-while-idle=true</span><br><span class="line">#既作为检测的间隔时间又作为testWhileIdel执行的依据</span><br><span class="line">spring.datasource.druid.time-between-eviction-runs-millis=60000</span><br><span class="line">#销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接</span><br><span class="line">spring.datasource.druid.min-evictable-idle-time-millis=30000</span><br><span class="line">#用来检测连接是否有效的sql 必须是一个查询语句</span><br><span class="line">#mysql中为 select &apos;x&apos;</span><br><span class="line">#oracle中为 select 1 from dual</span><br><span class="line">spring.datasource.druid.validation-query=select &apos;x&apos;</span><br><span class="line">#申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true</span><br><span class="line">spring.datasource.druid.test-on-borrow=false</span><br><span class="line">#归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true</span><br><span class="line">spring.datasource.druid.test-on-return=false</span><br><span class="line">#当数据库抛出不可恢复的异常时,抛弃该连接</span><br><span class="line">#spring.datasource.druid.exception-sorter=true</span><br><span class="line">#是否缓存preparedStatement,mysql5.5+建议开启</span><br><span class="line">spring.datasource.druid.pool-prepared-statements=false</span><br><span class="line">#当值大于0时poolPreparedStatements会自动修改为true</span><br><span class="line">spring.datasource.druid.max-pool-prepared-statement-per-connection-size=20</span><br><span class="line">#配置扩展插件</span><br><span class="line">spring.datasource.druid.filters=stat,wall</span><br><span class="line">#通过connectProperties属性来打开mergeSql功能；慢SQL记录</span><br><span class="line">spring.datasource.druid.connection-properties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500</span><br><span class="line">#合并多个DruidDataSource的监控数据</span><br><span class="line">spring.datasource.druid.use-global-data-source-stat=true</span><br><span class="line">#设置访问druid监控页的账号和密码,默认没有</span><br><span class="line">spring.datasource.druid.stat-view-servlet.enabled=true</span><br><span class="line">spring.datasource.druid.stat-view-servlet.login-username=admin</span><br><span class="line">spring.datasource.druid.stat-view-servlet.login-password=admin</span><br><span class="line">#spring.datasource.druid.stat-view-servlet.url-pattern=/*</span><br><span class="line">spring.datasource.druid.stat-view-servlet.reset-enable=false</span><br><span class="line">spring.datasource.druid.web-stat-filter.url-pattern=/*</span><br><span class="line">spring.datasource.druid.web-stat-filter.exclusions=*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</span><br><span class="line">spring.datasource.druid.web-stat-filter.enabled=true</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>由于使用  <strong>druid-spring-boot-starter</strong>所以可以不用再写java 配置类  </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource.druid"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidDataSourceProperty</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 数据库配置</span></span><br><span class="line">  <span class="keyword">private</span> String url;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> String driverClassName;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  ....省略其他参数</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidDataSourceConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> DruidDataSourceProperty druidDataSourceProperty;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DruidDataSource datasource = <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    datasource.setUrl(druidDataSourceProperty.getUrl());</span><br><span class="line">    datasource.setUsername(druidDataSourceProperty.getUsername());</span><br><span class="line">    datasource.setPassword(druidDataSourceProperty.getPassword());</span><br><span class="line">    datasource.setDriverClassName(druidDataSourceProperty.getDriverClassName());</span><br><span class="line">    datasource.setInitialSize(druidDataSourceProperty.getInitialSize());</span><br><span class="line">    datasource.setMinIdle(druidDataSourceProperty.getMinIdle());</span><br><span class="line">    datasource.setMaxActive(druidDataSourceProperty.getMaxActive());</span><br><span class="line">    <span class="comment">// 配置获取连接等待超时的时间</span></span><br><span class="line">    datasource.setMaxWait(druidDataSourceProperty.getMaxWait());</span><br><span class="line">    <span class="comment">// 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒</span></span><br><span class="line">    datasource.setTimeBetweenEvictionRunsMillis(</span><br><span class="line">        druidDataSourceProperty.getTimeBetweenEvictionRunsMillis());</span><br><span class="line">    <span class="comment">// 配置一个连接在池中最小生存的时间，单位是毫秒</span></span><br><span class="line">    datasource</span><br><span class="line">        .setMinEvictableIdleTimeMillis(druidDataSourceProperty.getMinEvictableIdleTimeMillis());</span><br><span class="line">    datasource.setValidationQuery(druidDataSourceProperty.getValidationQuery());</span><br><span class="line">    datasource.setTestWhileIdle(druidDataSourceProperty.isTestWhileIdle());</span><br><span class="line">    datasource.setTestOnBorrow(druidDataSourceProperty.isTestOnBorrow());</span><br><span class="line">    datasource.setTestOnReturn(druidDataSourceProperty.isTestOnReturn());</span><br><span class="line">    datasource.setPoolPreparedStatements(druidDataSourceProperty.isPoolPreparedStatements());</span><br><span class="line">    datasource.setUseGlobalDataSourceStat(druidDataSourceProperty.isUseGlobalDataSourceStat());</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      datasource.setFilters(druidDataSourceProperty.getFilters());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">      log.error(<span class="string">"druid configuration initialization filter"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">    datasource.setConnectionProperties(druidDataSourceProperty.getConnectionProperties());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> datasource;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 监控显示的servlet,定义Servlet，用于Druid控制台的查看</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> ServletRegistrationBean <span class="title">druidServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    log.info(<span class="string">"init Druid Servlet Configuration "</span>);</span><br><span class="line">    ServletRegistrationBean servletRegistrationBean = <span class="keyword">new</span> ServletRegistrationBean();</span><br><span class="line">    servletRegistrationBean.setServlet(<span class="keyword">new</span> StatViewServlet());</span><br><span class="line">    servletRegistrationBean.addUrlMappings(<span class="string">"/druid/*"</span>);</span><br><span class="line">    Map&lt;String, String&gt; initParameters = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">    initParameters.put(<span class="string">"loginUsername"</span>, <span class="string">"admin"</span>); <span class="comment">// 用户名</span></span><br><span class="line">    initParameters.put(<span class="string">"loginPassword"</span>, <span class="string">"admin"</span>); <span class="comment">// 密码</span></span><br><span class="line">    initParameters.put(<span class="string">"resetEnable"</span>, <span class="string">"false"</span>); <span class="comment">// 禁用HTML页面上的“Reset All”功能</span></span><br><span class="line">    initParameters.put(<span class="string">"allow"</span>, <span class="string">""</span>); <span class="comment">// IP白名单 (没有配置或者为空，则允许所有访问)</span></span><br><span class="line">    <span class="comment">// initParameters.put("deny", "192.168.20.38");// IP黑名单 (存在共同时，deny优先于allow)</span></span><br><span class="line">    servletRegistrationBean.setInitParameters(initParameters);</span><br><span class="line">    <span class="keyword">return</span> servletRegistrationBean;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 定义Filter，忽略静态资源的拦截</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> FilterRegistrationBean <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FilterRegistrationBean filterRegistrationBean = <span class="keyword">new</span> FilterRegistrationBean();</span><br><span class="line">    filterRegistrationBean.setFilter(<span class="keyword">new</span> WebStatFilter());</span><br><span class="line">    filterRegistrationBean.addUrlPatterns(<span class="string">"/*"</span>);</span><br><span class="line">    filterRegistrationBean.addInitParameter(<span class="string">"exclusions"</span>,</span><br><span class="line">        <span class="string">"*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"</span>);</span><br><span class="line">    <span class="keyword">return</span> filterRegistrationBean;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Mybatis"><a href="#3-Mybatis" class="headerlink" title="3. Mybatis"></a>3. Mybatis</h4><p>在 启动类上加上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MapperScan</span>(basePackages = <span class="string">"com.houqx.test.mapper"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这样就不用再Mapper 上添加 @Mapper 注解了</p>
+<p>添加配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#mybatis 日志级别</span><br><span class="line">logging.level.com.houqx.test.mapper:debug</span><br><span class="line">#mybatis 包扫描</span><br><span class="line">mybatis.type-aliases-package=com.houqx.test.domain</span><br><span class="line">mybatis.configuration.call-setters-on-nulls=true</span><br><span class="line">mybatis.mapper-locations=classpath:/mybatis/**.xml</span><br><span class="line">pagehelper.helperDialect=mysql</span><br><span class="line">pagehelper.params=count=countSql</span><br><span class="line">pagehelper.reasonable=true</span><br><span class="line">pagehelper.supportMethodsArguments=true</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/idea-kuai-jie-jian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2189,180 +2391,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/macInstallMysql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ho.1994">
-      <meta itemprop="description" content="填坑之路">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HouQx's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/29/macInstallMysql/" class="post-title-link" itemprop="url">Mac 安装 Mysql</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-29 10:35:08" itemprop="dateCreated datePublished" datetime="2019-04-29T10:35:08+08:00">2019-04-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-15 10:46:46" itemprop="dateModified" datetime="2019-05-15T10:46:46+08:00">2019-05-15</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>### </p>
-<p><a href="https://www.jianshu.com/p/4cb5ef29a099" target="_blank" rel="noopener">https://www.jianshu.com/p/4cb5ef29a099</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2411,7 +2439,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2446,7 +2474,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2489,7 +2523,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
