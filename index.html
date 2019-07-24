@@ -423,6 +423,204 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/mysql-utf-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ho.1994">
+      <meta itemprop="description" content="填坑之路">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HouQx's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/24/mysql-utf-8/" class="post-title-link" itemprop="url">Mysql的UTF-8</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-24 11:05:03 / 修改时间：11:17:13" itemprop="dateCreated datePublished" datetime="2019-07-24T11:05:03+08:00">2019-07-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="译-In-MySQL-never-use-“utf8”-Use-“utf8mb4”"><a href="#译-In-MySQL-never-use-“utf8”-Use-“utf8mb4”" class="headerlink" title="[译]  In MySQL, never use “utf8”. Use “utf8mb4”."></a>[译]  In MySQL, never use “utf8”. Use “utf8mb4”.</h2><h3 id="用MySQL的朋友们请不要使用”utf8”，请使用”utf8mb4”"><a href="#用MySQL的朋友们请不要使用”utf8”，请使用”utf8mb4”" class="headerlink" title="用MySQL的朋友们请不要使用”utf8”，请使用”utf8mb4”"></a><strong>用MySQL的朋友们请不要使用”utf8”，请使用”utf8mb4”</strong></h3><p>今天我试图把UTF-8编码的字符串插入使用“utf8”编码的MariaDB数据库中，Rails抛出一个古怪的异常:</p>
+<blockquote>
+<p>Incorrect string value: ‘\xF0\x9F\x98\x83 &lt;…’ for column ‘summary’ at row 1</p>
+</blockquote>
+<p>一切都很UTF-8：UTF-8 client，UTF-8的服务器，UTF-8编码的数据库，使用UTF-8的字符集。“😃 &lt;…”是个有效的UTF-8字符串。</p>
+<p>但是问题的关键是：MySQL数据库的 “<strong>utf8</strong>”并不是真正概念里的 <em>UTF-8。</em></p>
+<p>MySQL中的“utf8”编码只支持最大3字节每字符。真正的大家正在使用的UTF-8编码是应该能支持4字节每个字符。</p>
+<p>MySQL的开发者没有修复这个bug。他们在2010年增加了一个变通的方法：一个新的字符集“<strong>utf8mb4</strong>”</p>
+<p>当然，他们并没有对外公布（可能因为这个bug有点尴尬）。现在很多指南推荐用户使用“utf8”其实都错了。</p>
+<p>简单的说:</p>
+<p>MySQL中的 “utf8mb4” 才是 真正意义上的“UTF-8”。</p>
+<p>MySQL的“utf8”是个“特殊的字符编码”。这种编码很多Unicode字符保存不了。</p>
+<p>我强烈建议MySQL和MariaDB用户使用“utf8mb4”而不是“utf8”。</p>
+<h3 id="编码是什么？什么是UTF-8？"><a href="#编码是什么？什么是UTF-8？" class="headerlink" title="编码是什么？什么是UTF-8？"></a><strong>编码是什么？什么是UTF-8？</strong></h3><p>Joel on Software上有一遍我最喜欢的<a href="https://link.jianshu.com?t=https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/" target="_blank" rel="noopener">介绍</a>，我精简描述如下：</p>
+<p>计算机使用0和1存储文字。比如第一段第一个字符存储为“01000011”表示“C”，计算机通过以下两个步骤选择用“C”表示：</p>
+<p>计算机读取到“01000011”后计算出这是数字67。</p>
+<p>计算机通过查找<a href="https://link.jianshu.com?t=http://unicode.org/" target="_blank" rel="noopener">Unicode</a>字符集来确认67代表的“C”。</p>
+<p>同样的事情发生在我打字输入C的时候。</p>
+<p>计算机通过Unicode字符集将“C” 映射为67。</p>
+<p>计算机把67编码为“01000011”发送给web服务器。</p>
+<p>几乎所有的程序和互联网应用使用Unicode字符集。</p>
+<p>Unicode字符集里有超过100万个字符(“C” 和 “💩” 是两种不同的字符。)。UTF-32是最简单的编码方式，它在表示每个字符的时候使用32个bits。这样编码简单，但是并不实用，明显浪费了太多的空间。</p>
+<p>UTF-8相比UTF-32更加节约空间。在UTF-8中，像“C”这样的字符占用8bits，“💩”这样的占用32 bits。其他字符占用16或者24 bits。如本篇这样的文章用UTF-8存储比用UTF-32节省4倍左右的空间。更小的空间占用也意味着加载速度会快上4倍。</p>
+<p>而MySQL中的 “utf8”字符集则和其他应用行为不一样。比如根本没法表示“💩”。</p>
+<h3 id="一点关于MySQL的历史"><a href="#一点关于MySQL的历史" class="headerlink" title="一点关于MySQL的历史"></a><strong>一点关于MySQL的历史</strong></h3><p>为什么MySQL的开发者开发了一个奇怪的“utf8”。我们可以通过提交的日志来揣测一下。</p>
+<p>MySQL从<a href="https://link.jianshu.com?t=http://mysql.localhost.net.ar/doc/refman/4.1/en/news-4-1-0.html" target="_blank" rel="noopener">4.1版</a>开始支持UTF-8。那是在比今天UTF-8 <a href="https://link.jianshu.com?t=https://tools.ietf.org/html/rfc3629" target="_blank" rel="noopener">RFC 3629</a>标准更早的2003年。</p>
+<p>在此之前的UTF-8标准,<a href="https://link.jianshu.com?t=https://www.ietf.org/rfc/rfc2279.txt" target="_blank" rel="noopener">RFC 2279</a>中规定6个bytes表示一个字符。MySQL的开发者在2002.3.28编码实现了RFC 2279 。并发布了<a href="https://link.jianshu.com?t=https://github.com/mysql/mysql-server/commit/55e0a9cb01af4b01bc4e4395de9e4dd2a1b0cf23" target="_blank" rel="noopener">pre-pre-release 的 MySQL 4.1</a></p>
+<p>然后在9月出现了一个神秘的字节调整。“UTF8 now works with up to<a href="https://link.jianshu.com?t=https://github.com/mysql/mysql-server/commit/43a506c0ced0e6ea101d3ab8b4b423ce3fa327d0" target="_blank" rel="noopener">3 byte sequences only</a>.”</p>
+<p>是谁提交了这次更新？为什么？我无法解答。MySQL的源码移到Git后丢失了旧的作者信息（MySQL 曾经和linux内核一样使用BitKeeper）</p>
+<p>但是我大概能猜出来原因。</p>
+<p>回到2002年，如果用户可以保证表中的每一行具有相同的字节数，MySQL就可以提高用户的速度。为了得到这个提升，用户就需要定义保存文字的列为“CHAR”。一个“CHAR”列总是拥有相同的字符数。如果存入的字符较少则会在最后补齐空白。如果存入的数据过多则会被抛弃多余的字符。</p>
+<p>当MySQL的开发者第一次尝试以6字节每字符实现UTF-8时，他们意识到CHAR(1)的列会占用6字节，CHAR(2)会占用12字节，以此类推。</p>
+<p>显而易见的是，这个没有被使用的实现方式是正确的，任何一个理解UTF-8的开发者将会认同这一点。</p>
+<p>我的猜测是：MySQL的开发者违背了“utf8”编码去帮助那些1)试图去优化空间和速度的人，2）尝试优化空间和速度失败的人。</p>
+<p>这是个无人获益的改动。那些想要更快性能，更小空间的得到的依然是比他们曾经使用版本更大更慢的实现，而那些想要正确的“utf8”的人得到的是个“💩”都存储不了的实现。</p>
+<p>MySQL发布了这个错误的版本后，在也没有修复它：因为那样很多使用者将被迫重建他们的数据库。MySQL最终在2010年更新了一个以“utf8mb4”命名的UTF-8实现。</p>
+<p><a href="https://medium.com/@adamhooper/in-mysql-never-use-utf8-use-utf8mb4-11761243e434" target="_blank" rel="noopener">原文链接</a></p>
+<h3 id="拓展阅读"><a href="#拓展阅读" class="headerlink" title="拓展阅读"></a>拓展阅读</h3><p><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">阮一峰 字符编码笔记：ASCII，Unicode 和 UTF-8</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/12/Database-connection-pool-druid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2200,204 +2398,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/activeMQ-introduction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Ho.1994">
-      <meta itemprop="description" content="填坑之路">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HouQx's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/08/activeMQ-introduction/" class="post-title-link" itemprop="url">ActiveMQ 入门</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-08 13:34:39" itemprop="dateCreated datePublished" datetime="2019-05-08T13:34:39+08:00">2019-05-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-24 15:57:40" itemprop="dateModified" datetime="2019-05-24T15:57:40+08:00">2019-05-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/ActiveMQ/" itemprop="url" rel="index"><span itemprop="name">ActiveMQ</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <img src="/post-images/activemq-ru-men.jpeg" itemprop="contentUrl">
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>MQ是消息中间件，是一种在分布式系统中应用程序借以传递消息的媒介，常用的有ActiveMQ，RabbitMQ，kafka。ActiveMQ是Apache下的开源项目，完全支持JMS1.1和J2EE1.4规范的JMS Provider实现。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/05/08/activeMQ-introduction/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2446,7 +2446,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
