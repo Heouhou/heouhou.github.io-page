@@ -150,12 +150,12 @@
 <meta property="og:site_name" content="HouQx&#39;s Blog">
 <meta property="og:description" content="getClass().getResource(fileName) ：表示只会在当前调用类所在的同一路径下查找该fileName文件；  getClass().getClassLoader().getResource(fileName)：表示只会在根目录下（/）查找该文件；  fileName如果是前面加“/”，如”/fileName”，则表示绝对路径，取/目录下的该文件； 如果是前面没有加“/”">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://h84388206/post-images/1564040838702.jpg">
-<meta property="og:updated_time" content="2019-07-25T07:48:22.224Z">
+<meta property="og:image" content="http://yoursite.com/post-images/1564040838702.jpg">
+<meta property="og:updated_time" content="2019-07-25T07:53:04.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反射之 Class.getResource(String path)和Class.getClassLoader().getResource(String path) 的区别">
 <meta name="twitter:description" content="getClass().getResource(fileName) ：表示只会在当前调用类所在的同一路径下查找该fileName文件；  getClass().getClassLoader().getResource(fileName)：表示只会在根目录下（/）查找该文件；  fileName如果是前面加“/”，如”/fileName”，则表示绝对路径，取/目录下的该文件； 如果是前面没有加“/”">
-<meta name="twitter:image" content="https://h84388206/post-images/1564040838702.jpg">
+<meta name="twitter:image" content="http://yoursite.com/post-images/1564040838702.jpg">
 
 
 
@@ -468,7 +468,7 @@
                 
               
 
-              <time title="创建时间：2019-07-25 15:19:43 / 修改时间：15:48:22" itemprop="dateCreated datePublished" datetime="2019-07-25T15:19:43+08:00">2019-07-25</time>
+              <time title="创建时间：2019-07-25 15:19:43 / 修改时间：15:53:04" itemprop="dateCreated datePublished" datetime="2019-07-25T15:19:43+08:00">2019-07-25</time>
             
 
             
@@ -522,7 +522,7 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.test.clazz;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClazzTest</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ClazzTest c = <span class="keyword">new</span> ClazzTest();</span><br><span class="line">    System.out.println(c.getClass());</span><br><span class="line">    System.out.println(c.getClass().getClassLoader());</span><br><span class="line">    System.out.println(c.getClass().getResource(<span class="string">""</span>));</span><br><span class="line">    System.out.println(c.getClass().getClassLoader().getResource(<span class="string">""</span>));</span><br><span class="line">    System.out.println(c.getClass().getResource(<span class="string">"/"</span>));</span><br><span class="line">    System.out.println(c.getClass().getClassLoader().getResource(<span class="string">"/"</span>));</span><br><span class="line">    System.out.println(c.getClass().getResource(<span class="string">"/application.properties"</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">------------</span><br><span class="line">输出:</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">example</span>.<span class="title">demo</span>.<span class="title">test</span>.<span class="title">clazz</span>.<span class="title">ClazzTest</span></span></span><br><span class="line"><span class="class"><span class="title">sun</span>.<span class="title">misc</span>.<span class="title">Launcher</span>$<span class="title">AppClassLoader</span>@18<span class="title">b4aac2</span></span></span><br><span class="line">file:/Users/houqingxin/git/springBoot/target/classes/com/example/demo/test/clazz/</span><br><span class="line">file:/Users/houqingxin/git/springBoot/target/classes/</span><br><span class="line">file:/Users/houqingxin/git/springBoot/target/classes/</span><br><span class="line"><span class="keyword">null</span></span><br><span class="line">file:/Users/houqingxin/git/springBoot/target/classes/application.properties</span><br></pre></td></tr></table></figure>
 
-<p>目录结构:<br><img src="https://h84388206/post-images/1564040838702.jpg" alt="目录结构"></p>
+<p>目录结构:<br><img src="/post-images/1564040838702.jpg" alt="目录结构"></p>
 <p>举例：<br> 包com.aaa下有调用类A，需要引用配置文件1.xml：</p>
 <h4 id="1-配置文件在包com-aaa"><a href="#1-配置文件在包com-aaa" class="headerlink" title="1. 配置文件在包com.aaa"></a>1. 配置文件在包com.aaa</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getClass().getResource(<span class="string">"1.fxml"</span>) <span class="comment">//——成功</span></span><br><span class="line">getClass().getResource(<span class="string">"/1.fxml"</span>) <span class="comment">//——失败</span></span><br><span class="line">getClass().getClassLoader().getResource(<span class="string">"1.fxml"</span>)<span class="comment">//——失败</span></span><br><span class="line">getClass().getClassLoader().getResource(<span class="string">"/1.fxml"</span>)<span class="comment">//——失败</span></span><br></pre></td></tr></table></figure>
 
